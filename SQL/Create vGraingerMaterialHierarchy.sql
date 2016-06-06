@@ -5,8 +5,8 @@
 
 CREATE VIEW supplytigers.vGraingerMaterialHierarchy AS
     SELECT DISTINCT
-        Grainger_Item_Number AS MTRL_ID,
-        Material_Segment,
-        Material_Family
+        Material_Segment AS MTRL_LVL_1,
+        Material_Family AS MTRL_LVL_2,
+        Grainger_Item_Number AS MTRL_ID
     FROM
         supplytigers.GraingerItemPriceHistory
