@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.record="http:///orgomg/cwm/resource/record.ecore">
+  <TalendMetadata:DelimitedFileConnection xmi:id="_McGsQCm-Eeac1eimM7CfdQ" name="ImportGraingerIDRData" dataPackage="_McKWoCm-Eeac1eimM7CfdQ" Server="Localhost 127.0.0.1" FilePath="/Users/daveleopold/Documents/Supply Tigers/Grainger IDR Data.csv" Encoding="US-ASCII" FieldSeparatorValue="&quot;,&quot;" RowSeparatorValue="&quot;\n&quot;" UseHeader="true" HeaderValue="1" FirstLineCaption="true" EscapeType="CSV" CsvOption="true" FieldSeparatorType="Comma"/>
+  <orgomg.cwm.resource.record:RecordFile xmi:id="_McKWoCm-Eeac1eimM7CfdQ" name="default" dataManager="_McGsQCm-Eeac1eimM7CfdQ">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_McKWoSm-Eeac1eimM7CfdQ" id="_5bjB4Cm8Eeac1eimM7CfdQ" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWoim-Eeac1eimM7CfdQ" label="Track_Code" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWoym-Eeac1eimM7CfdQ" label="Track_Code_Name" length="18" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWpCm-Eeac1eimM7CfdQ" label="Sub_Track_Code" length="7" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWpSm-Eeac1eimM7CfdQ" label="Sub_Track_Code_Name" length="27" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWpim-Eeac1eimM7CfdQ" label="Account_Number" length="18" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWpym-Eeac1eimM7CfdQ" label="Account_Name" length="32" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWqCm-Eeac1eimM7CfdQ" label="Material" length="18" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWqSm-Eeac1eimM7CfdQ" label="Material_Description" length="43" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWqim-Eeac1eimM7CfdQ" label="Brand_Name" length="34" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWqym-Eeac1eimM7CfdQ" label="Billing_doc__Date" length="-1" talendType="id_Date" pattern="&quot;MM/dd/yy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWrCm-Eeac1eimM7CfdQ" label="Billing_document" length="10" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWrSm-Eeac1eimM7CfdQ" label="Cust_Prchs_Ordr_Nmbr" length="20" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWrim-Eeac1eimM7CfdQ" label="Sales_document" length="17" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWrym-Eeac1eimM7CfdQ" label="Contact_Name" length="12" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWsCm-Eeac1eimM7CfdQ" label="Sales_Office" length="14" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWsSm-Eeac1eimM7CfdQ" label="Sales_Office_Name" length="17" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWsim-Eeac1eimM7CfdQ" label="Active_Price_Point" length="20" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWsym-Eeac1eimM7CfdQ" label="Bill_Line_No_" length="17" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWtCm-Eeac1eimM7CfdQ" label="Bill_Qty" length="17" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWtSm-Eeac1eimM7CfdQ" label="Purchase_Amount" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWtim-Eeac1eimM7CfdQ" label="Freight_Billed" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWtym-Eeac1eimM7CfdQ" label="Tax_Billed" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWuCm-Eeac1eimM7CfdQ" label="Total_Invoice_Price" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWuSm-Eeac1eimM7CfdQ" label="Actual_Price_Paid" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWuim-Eeac1eimM7CfdQ" label="WA_Price" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWuym-Eeac1eimM7CfdQ" label="Ext_WA_Price" length="9" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWvCm-Eeac1eimM7CfdQ" label="Diff" length="10" precision="2" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWvSm-Eeac1eimM7CfdQ" label="__Discount" length="3" precision="6" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_McKWvim-Eeac1eimM7CfdQ" label="Column1" length="8" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+    </ownedElement>
+  </orgomg.cwm.resource.record:RecordFile>
+</xmi:XMI>

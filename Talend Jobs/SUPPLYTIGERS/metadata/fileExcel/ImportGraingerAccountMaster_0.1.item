@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.record="http:///orgomg/cwm/resource/record.ecore">
+  <TalendMetadata:FileExcelConnection xmi:id="_gc-e8CnREeac1eimM7CfdQ" name="ImportGraingerAccountMaster" dataPackage="_gc-e8SnREeac1eimM7CfdQ" Server="Localhost 127.0.0.1" FilePath="/Users/daveleopold/Documents/Supply Tigers/GraingerAccountMaster.xlsx" Encoding="UTF-8" UseHeader="true" HeaderValue="13" FirstLineCaption="true" SheetName="Overall Purchase Analysis (4)" firstColumn="2" thousandSeparator="','" decimalSeparator="'.'" selectAllSheets="true" sheetList="Overall Purchase Analysis (4):w&#xA;" generationMode="USER_MODE">
+    <sheetColumns>A</sheetColumns>
+    <sheetColumns>B</sheetColumns>
+    <sheetColumns>C</sheetColumns>
+    <sheetColumns>D</sheetColumns>
+    <sheetColumns>E</sheetColumns>
+    <sheetColumns>F</sheetColumns>
+    <sheetColumns>G</sheetColumns>
+    <sheetColumns>H</sheetColumns>
+    <sheetColumns>I</sheetColumns>
+    <sheetColumns>J</sheetColumns>
+    <sheetColumns>K</sheetColumns>
+    <sheetColumns>L</sheetColumns>
+    <sheetColumns>M</sheetColumns>
+    <sheetColumns>N</sheetColumns>
+    <sheetColumns>O</sheetColumns>
+    <sheetColumns>P</sheetColumns>
+    <sheetColumns>Q</sheetColumns>
+    <sheetColumns>R</sheetColumns>
+    <sheetColumns>S</sheetColumns>
+    <sheetColumns>T</sheetColumns>
+    <sheetColumns>U</sheetColumns>
+    <sheetColumns>V</sheetColumns>
+  </TalendMetadata:FileExcelConnection>
+  <orgomg.cwm.resource.record:RecordFile xmi:id="_gc-e8SnREeac1eimM7CfdQ" name="default" dataManager="_gc-e8CnREeac1eimM7CfdQ">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_gc-e8inREeac1eimM7CfdQ" id="_9eEFACnQEeac1eimM7CfdQ" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e8ynREeac1eimM7CfdQ" label="Track_Code" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e9CnREeac1eimM7CfdQ" label="Track_Code_Name" length="17" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e9SnREeac1eimM7CfdQ" label="Sub_Track_Code" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e9inREeac1eimM7CfdQ" label="Sub_Track_Code_Name" length="30" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e9ynREeac1eimM7CfdQ" label="Acct_Number" length="-1" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e-CnREeac1eimM7CfdQ" label="Account_Name" length="35" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e-SnREeac1eimM7CfdQ" label="Address" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e-inREeac1eimM7CfdQ" label="City" length="40" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e-ynREeac1eimM7CfdQ" label="Region" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e_CnREeac1eimM7CfdQ" label="Zip_Code" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e_SnREeac1eimM7CfdQ" label="Seller" length="40" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e_inREeac1eimM7CfdQ" label="TerrID_CSG" length="30" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-e_ynREeac1eimM7CfdQ" label="TerrID_District_Desc" length="40" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fACnREeac1eimM7CfdQ" label="CY_Purchase_Amount" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fASnREeac1eimM7CfdQ" label="PY_Purchase_Amount" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fAinREeac1eimM7CfdQ" label="CSP_Purchases" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fAynREeac1eimM7CfdQ" label="Non_CSP_Purchases" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fBCnREeac1eimM7CfdQ" label="G_Com_purchases" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fBSnREeac1eimM7CfdQ" label="Epro_Purchases" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fBinREeac1eimM7CfdQ" label="EDI_purchases" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_gc-fBynREeac1eimM7CfdQ" label="Find_MRO_Purchases" length="12" precision="4" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+    </ownedElement>
+  </orgomg.cwm.resource.record:RecordFile>
+</xmi:XMI>
