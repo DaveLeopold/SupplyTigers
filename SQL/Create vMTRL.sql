@@ -5,13 +5,9 @@
 
 CREATE VIEW supplytigers.vMTRL AS
     SELECT DISTINCT
-        IDR.Material AS MTRL_ID,
-        IDR.Material_Description AS MTRL_DESC,
-        IDR.Brand_Name AS MTRL_BRAND,
-        IPH.Material_Segment AS MTRL_SEGMENT,
-        IPH.Material_Family AS MTRL_FAMILY
-    FROM
-        supplytigers.GraingerIDR IDR
-            LEFT JOIN
-        supplytigers.GraingerItemPriceHistory IPH ON IDR.Material = IPH.Grainger_Item_Number
+        Material AS MTRL_ID,
+        Material_Description AS MTRL_DESC,
+        Brand_Name AS MTRL_BRAND
 
+    FROM
+        supplytigers.GraingerIDR
