@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.record="http:///orgomg/cwm/resource/record.ecore">
+  <TalendMetadata:FileExcelConnection xmi:id="_O_QkYStREeac1eimM7CfdQ" name="ImportItemPriceHistory" dataPackage="_O_QkYitREeac1eimM7CfdQ" Server="Localhost 127.0.0.1" FilePath="/Users/daveleopold/Documents/Supply Tigers (local)/May Data/STGAA-MAY Tier Report.xlsx" Encoding="UTF-8" UseHeader="true" HeaderValue="13" FirstLineCaption="true" SheetName="Summary Page" firstColumn="4" lastColumn="12" thousandSeparator="','" decimalSeparator="'.'" sheetList="Item Purchase History:w&#xA;" generationMode="USER_MODE">
+    <sheetColumns>A</sheetColumns>
+    <sheetColumns>B</sheetColumns>
+    <sheetColumns>C</sheetColumns>
+    <sheetColumns>D</sheetColumns>
+    <sheetColumns>E</sheetColumns>
+    <sheetColumns>F</sheetColumns>
+    <sheetColumns>G</sheetColumns>
+    <sheetColumns>H</sheetColumns>
+    <sheetColumns>I</sheetColumns>
+    <sheetColumns>J</sheetColumns>
+    <sheetColumns>K</sheetColumns>
+    <sheetColumns>L</sheetColumns>
+    <sheetColumns>M</sheetColumns>
+    <sheetColumns>N</sheetColumns>
+    <sheetColumns>O</sheetColumns>
+  </TalendMetadata:FileExcelConnection>
+  <orgomg.cwm.resource.record:RecordFile xmi:id="_O_QkYitREeac1eimM7CfdQ" name="default" dataManager="_O_QkYStREeac1eimM7CfdQ">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_O_QkYytREeac1eimM7CfdQ" id="_kfwG0CtQEeac1eimM7CfdQ" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_O_QkZCtREeac1eimM7CfdQ" label="Grainger_Item_Number" length="18" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_O_QkZStREeac1eimM7CfdQ" label="Item_Description" length="40" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_O_QkZitREeac1eimM7CfdQ" label="Brand_Name" length="40" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_O_QkZytREeac1eimM7CfdQ" label="Material_Segment" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_O_QkaCtREeac1eimM7CfdQ" label="Material_Family" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+    </ownedElement>
+  </orgomg.cwm.resource.record:RecordFile>
+</xmi:XMI>

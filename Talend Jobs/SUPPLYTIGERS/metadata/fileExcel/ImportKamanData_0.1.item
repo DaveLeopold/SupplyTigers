@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.record="http:///orgomg/cwm/resource/record.ecore">
+  <TalendMetadata:FileExcelConnection xmi:id="_OL-n0DGoEea7D8rK76gbOA" name="ImportKamanData" dataPackage="_OL-n0TGoEea7D8rK76gbOA" Server="Localhost 127.0.0.1" FilePath="/Users/daveleopold/Documents/Supply Tigers (local)/Non grainger files/Kaman - Supply Tigers 2016-YTD Sales Report.xlsx" Encoding="UTF-8" UseHeader="true" HeaderValue="1" FirstLineCaption="true" SheetName="YTD Sales History" firstColumn="1" thousandSeparator="','" decimalSeparator="'.'" sheetList="YTD Sales History:w&#xA;">
+    <sheetColumns>A</sheetColumns>
+    <sheetColumns>B</sheetColumns>
+    <sheetColumns>C</sheetColumns>
+    <sheetColumns>D</sheetColumns>
+    <sheetColumns>E</sheetColumns>
+    <sheetColumns>F</sheetColumns>
+    <sheetColumns>G</sheetColumns>
+    <sheetColumns>H</sheetColumns>
+    <sheetColumns>I</sheetColumns>
+    <sheetColumns>J</sheetColumns>
+    <sheetColumns>K</sheetColumns>
+    <sheetColumns>L</sheetColumns>
+    <sheetColumns>M</sheetColumns>
+    <sheetColumns>N</sheetColumns>
+    <sheetColumns>O</sheetColumns>
+    <sheetColumns>P</sheetColumns>
+    <sheetColumns>Q</sheetColumns>
+    <sheetColumns>R</sheetColumns>
+    <sheetColumns>S</sheetColumns>
+    <sheetColumns>T</sheetColumns>
+    <sheetColumns>U</sheetColumns>
+    <sheetColumns>V</sheetColumns>
+  </TalendMetadata:FileExcelConnection>
+  <orgomg.cwm.resource.record:RecordFile xmi:id="_OL-n0TGoEea7D8rK76gbOA" name="default" dataManager="_OL-n0DGoEea7D8rK76gbOA">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_OL-n0jGoEea7D8rK76gbOA" id="_shxXADGnEea7D8rK76gbOA" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n0zGoEea7D8rK76gbOA" label="CUST_ID" length="10" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n1DGoEea7D8rK76gbOA" label="COMPANYNAME" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n1TGoEea7D8rK76gbOA" label="ADDR_1" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n1jGoEea7D8rK76gbOA" label="FACILITY" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n1zGoEea7D8rK76gbOA" label="STATE" length="2" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n2DGoEea7D8rK76gbOA" label="branch_name" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n2TGoEea7D8rK76gbOA" label="SLSMN_NAME" length="60" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n2jGoEea7D8rK76gbOA" label="MFR_CODE" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n2zGoEea7D8rK76gbOA" label="MFG_DESC" length="90" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n3DGoEea7D8rK76gbOA" label="ITEM_NUM" length="30" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n3TGoEea7D8rK76gbOA" label="ITEM_DESC" length="90" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n3jGoEea7D8rK76gbOA" label="ITEM_CAT_CODE" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n3zGoEea7D8rK76gbOA" label="ITEM_CAT_DESC" length="90" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n4DGoEea7D8rK76gbOA" label="One_Digit" length="1" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n4TGoEea7D8rK76gbOA" label="One_Digit_ITEM_CAT_DESC" length="90" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n4jGoEea7D8rK76gbOA" label="BILL_DATE" length="-1" talendType="id_Date" pattern="&quot;MM/dd/yy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n4zGoEea7D8rK76gbOA" label="QTY_SHPD" length="3" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n5DGoEea7D8rK76gbOA" label="Per_Each" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n5TGoEea7D8rK76gbOA" label="EXT_PRC" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL-n5jGoEea7D8rK76gbOA" label="Savings_Estimated_25__from_Price_Sold" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL_O4DGoEea7D8rK76gbOA" label="Savings_Estimate_Exteded" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_OL_O4TGoEea7D8rK76gbOA" label="Savings_From_Price_Purchased___Extended" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;"/>
+    </ownedElement>
+  </orgomg.cwm.resource.record:RecordFile>
+</xmi:XMI>
