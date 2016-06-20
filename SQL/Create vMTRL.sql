@@ -3,11 +3,14 @@
     Dave Leopold
 **/
 
-CREATE VIEW supplytigers.vMTRL AS
+        
+CREATE 
+   
+VIEW `supplytigers`.`vMTRL` AS
     SELECT DISTINCT
-        Material AS MTRL_ID,
-        Material_Description AS MTRL_DESC,
-        Brand_Name AS MTRL_BRAND
-
+        `supplytigers`.`GraingerIDR`.`Material` AS `MTRL_ID`,
+        `supplytigers`.`GraingerIDR`.`Material_Description` AS `MTRL_DESC`,
+        MAX(`supplytigers`.`GraingerIDR`.`Brand_Name`) AS `MTRL_BRAND`
     FROM
-        supplytigers.GraingerIDR
+        `supplytigers`.`GraingerIDR`
+    GROUP BY 1 , 2;
