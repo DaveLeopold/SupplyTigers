@@ -1,3 +1,9 @@
+/* This creates a common PO Fact table from all vendors for Supply Tigers.
+this includes Grainger, Kaman, Office Depot, Staples, and WESCO
+2016/06/20
+Dave Leopold
+*/
+
 CREATE VIEW supplytigers.vCombined_PO_FACT AS
     SELECT 
         G.Account_Number AS Account_Number,
