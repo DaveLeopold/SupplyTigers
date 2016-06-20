@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010">
+  <TalendMetadata:GenericSchemaConnection xmi:id="_f33zECzMEeaCT_b6-XsV5Q" comment="connectionComment" label="connectionLabel" dataPackage="_f34aICzMEeaCT_b6-XsV5Q"/>
+  <TalendMetadata:GenericPackage xmi:id="_f34aICzMEeaCT_b6-XsV5Q" dataManager="_f33zECzMEeaCT_b6-XsV5Q">
+    <ownedElement xsi:type="TalendMetadata:MetadataTable" xmi:id="_f34aISzMEeaCT_b6-XsV5Q" label="metadata">
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aIizMEeaCT_b6-XsV5Q" name="Track_Code" id="443" label="Track_Code" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aIyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aJCzMEeaCT_b6-XsV5Q" name="Track_Code_Name" id="444" label="Track_Code_Name" length="18" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aJSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aJizMEeaCT_b6-XsV5Q" name="Sub_Track_Code" id="445" label="Sub_Track_Code" length="5" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aJyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aKCzMEeaCT_b6-XsV5Q" name="Sub_Track_Code_Name" id="446" label="Sub_Track_Code_Name" length="27" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aKSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aKizMEeaCT_b6-XsV5Q" name="Account_Number" id="447" label="Account_Number" length="-1" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aKyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aLCzMEeaCT_b6-XsV5Q" name="Account_Name" id="448" label="Account_Name" length="32" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aLSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aLizMEeaCT_b6-XsV5Q" name="Material" id="449" label="Material" length="18" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aLyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aMCzMEeaCT_b6-XsV5Q" name="Material_Description" id="450" label="Material_Description" length="40" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aMSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aMizMEeaCT_b6-XsV5Q" name="Brand_Name" id="451" label="Brand_Name" length="22" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aMyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aNCzMEeaCT_b6-XsV5Q" name="Billing_doc__Date" id="452" label="Billing_doc__Date" length="-1" talendType="id_Date" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aNSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aNizMEeaCT_b6-XsV5Q" name="Billing_document" id="453" label="Billing_document" length="-1" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aNyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aOCzMEeaCT_b6-XsV5Q" name="Cust_Prchs_Ordr_Nmbr" id="454" label="Cust_Prchs_Ordr_Nmbr" length="20" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aOSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aOizMEeaCT_b6-XsV5Q" name="Sales_document" id="455" label="Sales_document" length="10" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aOyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aPCzMEeaCT_b6-XsV5Q" name="Contact_Name" id="456" label="Contact_Name" length="19" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aPSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aPizMEeaCT_b6-XsV5Q" name="Sales_Office" id="457" label="Sales_Office" length="3" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aPyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aQCzMEeaCT_b6-XsV5Q" name="Sales_Office_Name" id="458" label="Sales_Office_Name" length="20" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aQSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aQizMEeaCT_b6-XsV5Q" name="Active_Price_Point" id="459" label="Active_Price_Point" length="4" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aQyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aRCzMEeaCT_b6-XsV5Q" name="Bill_Line_No_" id="460" label="Bill_Line_No_" talendType="id_String" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aRSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aRizMEeaCT_b6-XsV5Q" name="Bill_Qty" id="461" label="Bill_Qty" length="2" talendType="id_Integer" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aRyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aSCzMEeaCT_b6-XsV5Q" name="Purchase_Amount" id="462" label="Purchase_Amount" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aSSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aSizMEeaCT_b6-XsV5Q" name="Freight_Billed" id="463" label="Freight_Billed" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aSyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aTCzMEeaCT_b6-XsV5Q" name="Tax_Billed" id="464" label="Tax_Billed" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aTSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aTizMEeaCT_b6-XsV5Q" name="Total_Invoice_Price" id="465" label="Total_Invoice_Price" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aTyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aUCzMEeaCT_b6-XsV5Q" name="Actual_Price_Paid" id="466" label="Actual_Price_Paid" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aUSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aUizMEeaCT_b6-XsV5Q" name="WA_Price" id="467" label="WA_Price" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aUyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aVCzMEeaCT_b6-XsV5Q" name="Ext_WA_Price" id="468" label="Ext_WA_Price" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aVSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aVizMEeaCT_b6-XsV5Q" name="Diff" id="469" label="Diff" length="12" precision="2" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aVyzMEeaCT_b6-XsV5Q"/>
+      </feature>
+      <feature xsi:type="TalendMetadata:MetadataColumn" xmi:id="_f34aWCzMEeaCT_b6-XsV5Q" name="__Discount" id="470" label="__Discount" length="12" precision="6" talendType="id_Float" pattern="&quot;dd-MM-yyyy&quot;">
+        <initialValue xmi:id="_f34aWSzMEeaCT_b6-XsV5Q"/>
+      </feature>
+    </ownedElement>
+  </TalendMetadata:GenericPackage>
+</xmi:XMI>
