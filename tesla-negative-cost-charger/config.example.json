@@ -1,0 +1,11 @@
+{
+    "tesla_email": "your-tesla-account@email.com",
+
+    "vehicle_index": 0,
+
+    "price_threshold_cents": 0.0,
+
+    "poll_interval_seconds": 300,
+
+    "max_battery_percent": 90
+}
