@@ -36,6 +36,8 @@ COMED_HOUR_AVG_API = "https://hourlypricing.comed.com/api?type=currenthouraverag
 DEFAULT_CONFIG_PATH = Path(__file__).parent / "config.json"
 DEFAULT_POLL_INTERVAL_SECONDS = 300  # 5 minutes (matches ComEd update cadence)
 DEFAULT_PRICE_THRESHOLD = 0.0       # cents/kWh — trigger at negative prices
+HIGH_BATTERY_THRESHOLD = 79         # skip checking car when battery >= this
+HIGH_BATTERY_COOLDOWN = 3600        # seconds to wait before rechecking (1 hour)
 
 LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
@@ -203,6 +205,21 @@ class TeslaChargeController:
             logger.error("Failed to get battery level: %s", e)
             return None
 
+    def get_charge_info(self) -> dict | None:
+        """Get battery level and plug state in a single API call."""
+        vehicle = self._get_vehicle()
+        try:
+            charge_state = vehicle.get_vehicle_data()["charge_state"]
+            state = charge_state.get("charging_state", "")
+            return {
+                "battery_level": charge_state.get("battery_level"),
+                "plugged_in": state != "Disconnected",
+                "charging_state": state,
+            }
+        except Exception as e:
+            logger.error("Failed to get charge info: %s", e)
+            return None
+
     def start_charging(self) -> bool:
         """Send the charge_start command."""
         vehicle = self._get_vehicle()
@@ -249,6 +266,11 @@ def run(config: dict) -> None:
     # a session the user started manually or via scheduled charging).
     negative_cost_session_active = False
 
+    # High-battery cooldown: when battery >= 79%, skip checking the car
+    # for 1 hour. Reset if the car is freshly plugged in.
+    high_battery_skip_until = 0.0  # unix timestamp; 0 = no cooldown
+    last_plugged_in = None         # previous plug state for transition detection
+
     logger.info("=" * 60)
     logger.info("Tesla Negative-Cost Charger")
     logger.info("=" * 60)
@@ -256,6 +278,7 @@ def run(config: dict) -> None:
     logger.info("Price threshold : %.2f ¢/kWh", threshold)
     logger.info("Poll interval   : %d seconds", poll_interval)
     logger.info("Max battery %%   : %d%%", max_battery)
+    logger.info("High bat skip   : >= %d%% → wait 1 hour", HIGH_BATTERY_THRESHOLD)
     logger.info("=" * 60)
 
     while True:
@@ -278,18 +301,70 @@ def run(config: dict) -> None:
                     threshold,
                 )
 
-                if not controller.is_plugged_in():
+                # Check if we're in a high-battery cooldown period
+                now = time.time()
+                if now < high_battery_skip_until:
+                    # Cooldown active — but check if the car was just plugged in
+                    info = controller.get_charge_info()
+                    if info is None:
+                        time.sleep(poll_interval)
+                        continue
+
+                    just_plugged_in = (
+                        last_plugged_in is not None
+                        and not last_plugged_in
+                        and info["plugged_in"]
+                    )
+                    last_plugged_in = info["plugged_in"]
+
+                    if just_plugged_in:
+                        logger.info(
+                            "Car just plugged in — clearing high-battery cooldown"
+                        )
+                        high_battery_skip_until = 0.0
+                        # Fall through to normal battery check below
+                    else:
+                        remaining = int(high_battery_skip_until - now)
+                        logger.info(
+                            "High-battery cooldown active — skipping car check "
+                            "(%d min %d sec remaining)",
+                            remaining // 60,
+                            remaining % 60,
+                        )
+                        time.sleep(poll_interval)
+                        continue
+
+                # Normal path: check plug + battery state
+                info = controller.get_charge_info()
+                if info is None:
+                    time.sleep(poll_interval)
+                    continue
+
+                last_plugged_in = info["plugged_in"]
+
+                if not info["plugged_in"]:
                     logger.info("Vehicle is not plugged in — skipping")
                     time.sleep(poll_interval)
                     continue
 
-                battery = controller.get_battery_level()
+                battery = info["battery_level"]
                 if battery is not None and battery >= max_battery:
                     logger.info(
                         "Battery at %d%% (max %d%%) — skipping",
                         battery,
                         max_battery,
                     )
+                    time.sleep(poll_interval)
+                    continue
+
+                if battery is not None and battery >= HIGH_BATTERY_THRESHOLD:
+                    logger.info(
+                        "Battery at %d%% (>= %d%%) — skipping car checks "
+                        "for 1 hour",
+                        battery,
+                        HIGH_BATTERY_THRESHOLD,
+                    )
+                    high_battery_skip_until = time.time() + HIGH_BATTERY_COOLDOWN
                     time.sleep(poll_interval)
                     continue
 
