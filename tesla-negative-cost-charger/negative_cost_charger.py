@@ -40,6 +40,7 @@ HIGH_BATTERY_THRESHOLD = 79         # skip checking car when battery >= this
 HIGH_BATTERY_COOLDOWN = 3600        # seconds to wait before rechecking (1 hour)
 MIN_CHARGE_DURATION = 900           # seconds — keep charging at least 15 minutes
 CHARGE_GRACE_PRICE = 3.0            # ¢/kWh — allow charging up to this during the 15-min window
+UNPLUGGED_COOLDOWN = 900            # seconds — skip car checks for 15 min when unplugged
 
 LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
@@ -273,6 +274,10 @@ def run(config: dict) -> None:
     high_battery_skip_until = 0.0  # unix timestamp; 0 = no cooldown
     last_plugged_in = None         # previous plug state for transition detection
 
+    # Unplugged cooldown: when car is not plugged in, skip checking for
+    # 15 minutes. Reset if the car is freshly plugged in.
+    unplugged_skip_until = 0.0     # unix timestamp; 0 = no cooldown
+
     # Minimum charge session: once charging starts, keep going for at least
     # 15 minutes as long as price stays <= 3.0 ¢/kWh.
     session_started_at = 0.0       # unix timestamp when we started charging
@@ -307,9 +312,13 @@ def run(config: dict) -> None:
                     threshold,
                 )
 
-                # Check if we're in a high-battery cooldown period
+                # Check if we're in a cooldown period (high battery or unplugged)
                 now = time.time()
-                if now < high_battery_skip_until:
+                in_cooldown = (
+                    now < high_battery_skip_until or now < unplugged_skip_until
+                )
+
+                if in_cooldown:
                     # Cooldown active — but check if the car was just plugged in
                     info = controller.get_charge_info()
                     if info is None:
@@ -325,15 +334,22 @@ def run(config: dict) -> None:
 
                     if just_plugged_in:
                         logger.info(
-                            "Car just plugged in — clearing high-battery cooldown"
+                            "Car just plugged in — clearing cooldowns"
                         )
                         high_battery_skip_until = 0.0
+                        unplugged_skip_until = 0.0
                         # Fall through to normal battery check below
                     else:
-                        remaining = int(high_battery_skip_until - now)
+                        if now < unplugged_skip_until:
+                            remaining = int(unplugged_skip_until - now)
+                            label = "Unplugged"
+                        else:
+                            remaining = int(high_battery_skip_until - now)
+                            label = "High-battery"
                         logger.info(
-                            "High-battery cooldown active — skipping car check "
+                            "%s cooldown active — skipping car check "
                             "(%d min %d sec remaining)",
+                            label,
                             remaining // 60,
                             remaining % 60,
                         )
@@ -349,7 +365,11 @@ def run(config: dict) -> None:
                 last_plugged_in = info["plugged_in"]
 
                 if not info["plugged_in"]:
-                    logger.info("Vehicle is not plugged in — skipping")
+                    unplugged_skip_until = time.time() + UNPLUGGED_COOLDOWN
+                    logger.info(
+                        "Vehicle is not plugged in — skipping car checks "
+                        "for 15 minutes"
+                    )
                     time.sleep(poll_interval)
                     continue
 
