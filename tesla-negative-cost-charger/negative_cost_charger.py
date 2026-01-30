@@ -38,6 +38,8 @@ DEFAULT_POLL_INTERVAL_SECONDS = 300  # 5 minutes (matches ComEd update cadence)
 DEFAULT_PRICE_THRESHOLD = 0.0       # cents/kWh — trigger at negative prices
 HIGH_BATTERY_THRESHOLD = 79         # skip checking car when battery >= this
 HIGH_BATTERY_COOLDOWN = 3600        # seconds to wait before rechecking (1 hour)
+MIN_CHARGE_DURATION = 900           # seconds — keep charging at least 15 minutes
+CHARGE_GRACE_PRICE = 3.0            # ¢/kWh — allow charging up to this during the 15-min window
 
 LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
@@ -271,6 +273,10 @@ def run(config: dict) -> None:
     high_battery_skip_until = 0.0  # unix timestamp; 0 = no cooldown
     last_plugged_in = None         # previous plug state for transition detection
 
+    # Minimum charge session: once charging starts, keep going for at least
+    # 15 minutes as long as price stays <= 3.0 ¢/kWh.
+    session_started_at = 0.0       # unix timestamp when we started charging
+
     logger.info("=" * 60)
     logger.info("Tesla Negative-Cost Charger")
     logger.info("=" * 60)
@@ -370,19 +376,44 @@ def run(config: dict) -> None:
 
                 if controller.start_charging():
                     negative_cost_session_active = True
+                    session_started_at = time.time()
                     logger.info("Negative-cost charging session STARTED")
 
             elif not price_is_negative and negative_cost_session_active:
-                # Price returned to positive — stop the session we started
-                logger.info(
-                    "Price (%.2f ¢) is above threshold (%.2f ¢) — "
-                    "stopping negative-cost session",
-                    price,
-                    threshold,
-                )
-                if controller.stop_charging():
-                    negative_cost_session_active = False
-                    logger.info("Negative-cost charging session ENDED")
+                # Price returned to positive — but respect the 15-min minimum
+                elapsed = time.time() - session_started_at
+                in_grace_period = elapsed < MIN_CHARGE_DURATION
+                price_acceptable = price <= CHARGE_GRACE_PRICE
+
+                if in_grace_period and price_acceptable:
+                    remaining = int(MIN_CHARGE_DURATION - elapsed)
+                    logger.info(
+                        "Price (%.2f ¢) is positive but within 15-min minimum "
+                        "and <= %.1f ¢ — continuing (%d min %d sec left)",
+                        price,
+                        CHARGE_GRACE_PRICE,
+                        remaining // 60,
+                        remaining % 60,
+                    )
+                else:
+                    if in_grace_period and not price_acceptable:
+                        logger.info(
+                            "Price (%.2f ¢) exceeded %.1f ¢ ceiling — "
+                            "stopping despite 15-min minimum",
+                            price,
+                            CHARGE_GRACE_PRICE,
+                        )
+                    else:
+                        logger.info(
+                            "Price (%.2f ¢) is above threshold (%.2f ¢) — "
+                            "stopping negative-cost session",
+                            price,
+                            threshold,
+                        )
+                    if controller.stop_charging():
+                        negative_cost_session_active = False
+                        session_started_at = 0.0
+                        logger.info("Negative-cost charging session ENDED")
 
             elif negative_cost_session_active:
                 # Still negative — check battery cap
@@ -395,6 +426,7 @@ def run(config: dict) -> None:
                     )
                     if controller.stop_charging():
                         negative_cost_session_active = False
+                        session_started_at = 0.0
                 else:
                     logger.info("Negative-cost session active — continuing")
 
