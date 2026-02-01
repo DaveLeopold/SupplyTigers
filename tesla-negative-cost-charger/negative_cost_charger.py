@@ -18,7 +18,6 @@ Usage:
 import argparse
 import json
 import logging
-import os
 import sys
 import time
 from datetime import datetime, timezone
@@ -42,6 +41,8 @@ MIN_CHARGE_DURATION = 900           # seconds — keep charging at least 15 minu
 CHARGE_GRACE_PRICE = 3.0            # ¢/kWh — allow charging up to this during the 15-min window
 UNPLUGGED_COOLDOWN = 900            # seconds — skip car checks for 15 min when unplugged
 
+STATE_FILE = Path(__file__).parent / "state.json"
+
 LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
 # ---------------------------------------------------------------------------
@@ -49,6 +50,39 @@ LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 # ---------------------------------------------------------------------------
 logging.basicConfig(format=LOG_FORMAT, level=logging.INFO)
 logger = logging.getLogger("negative_cost_charger")
+
+
+# ---------------------------------------------------------------------------
+# Session State Persistence
+# ---------------------------------------------------------------------------
+def save_state(session_active: bool, session_started_at: float) -> None:
+    """Write session state to disk for crash recovery."""
+    try:
+        STATE_FILE.write_text(json.dumps({
+            "session_active": session_active,
+            "session_started_at": session_started_at,
+        }))
+    except OSError as e:
+        logger.warning("Could not save state file: %s", e)
+
+
+def load_state() -> dict:
+    """Load session state from disk. Returns defaults if missing."""
+    try:
+        if STATE_FILE.exists():
+            data = json.loads(STATE_FILE.read_text())
+            if data.get("session_active"):
+                logger.info(
+                    "Recovered active session from state file "
+                    "(started at %s)",
+                    datetime.fromtimestamp(
+                        data["session_started_at"], tz=timezone.utc
+                    ).strftime("%Y-%m-%d %H:%M UTC"),
+                )
+            return data
+    except (OSError, json.JSONDecodeError, KeyError) as e:
+        logger.warning("Could not load state file: %s", e)
+    return {"session_active": False, "session_started_at": 0.0}
 
 
 # ---------------------------------------------------------------------------
@@ -174,30 +208,6 @@ class TeslaChargeController:
             logger.error("Failed to wake vehicle: %s", e)
             return False
 
-    def is_plugged_in(self) -> bool:
-        """Check if the vehicle is plugged in."""
-        vehicle = self._get_vehicle()
-        try:
-            charge_state = vehicle.get_vehicle_data()["charge_state"]
-            state = charge_state.get("charging_state", "")
-            # Possible states: Disconnected, Stopped, Charging, Complete
-            plugged_in = state != "Disconnected"
-            logger.info("Charging state: %s (plugged in: %s)", state, plugged_in)
-            return plugged_in
-        except Exception as e:
-            logger.error("Failed to get charge state: %s", e)
-            return False
-
-    def is_currently_charging(self) -> bool:
-        """Check if the vehicle is currently charging."""
-        vehicle = self._get_vehicle()
-        try:
-            charge_state = vehicle.get_vehicle_data()["charge_state"]
-            return charge_state.get("charging_state") == "Charging"
-        except Exception as e:
-            logger.error("Failed to get charge state: %s", e)
-            return False
-
     def get_battery_level(self) -> int | None:
         """Get current battery percentage."""
         vehicle = self._get_vehicle()
@@ -209,15 +219,17 @@ class TeslaChargeController:
             return None
 
     def get_charge_info(self) -> dict | None:
-        """Get battery level and plug state in a single API call."""
+        """Get battery level, plug state, and schedule info in a single API call."""
         vehicle = self._get_vehicle()
         try:
             charge_state = vehicle.get_vehicle_data()["charge_state"]
             state = charge_state.get("charging_state", "")
+            scheduled_mode = charge_state.get("scheduled_charging_mode", "Off")
             return {
                 "battery_level": charge_state.get("battery_level"),
                 "plugged_in": state != "Disconnected",
                 "charging_state": state,
+                "scheduled_charging": scheduled_mode != "Off",
             }
         except Exception as e:
             logger.error("Failed to get charge info: %s", e)
@@ -236,8 +248,17 @@ class TeslaChargeController:
             logger.warning("Could not start charging: %s", e)
             return False
 
-    def stop_charging(self) -> bool:
-        """Send the charge_stop command."""
+    def stop_charging(self, respect_schedule: bool = True) -> bool:
+        """Stop charging, but skip STOP_CHARGE if a charge schedule is set."""
+        if respect_schedule:
+            info = self.get_charge_info()
+            if info and info["scheduled_charging"]:
+                logger.info(
+                    "Scheduled charging is configured — leaving charging on "
+                    "to avoid disrupting overnight schedule"
+                )
+                return True
+
         vehicle = self._get_vehicle()
         if not self._wake_vehicle():
             return False
@@ -267,7 +288,9 @@ def run(config: dict) -> None:
 
     # Track whether WE started a charging session (to avoid stopping
     # a session the user started manually or via scheduled charging).
-    negative_cost_session_active = False
+    # Restored from disk on startup for crash recovery.
+    state = load_state()
+    negative_cost_session_active = state["session_active"]
 
     # High-battery cooldown: when battery >= 79%, skip checking the car
     # for 1 hour. Reset if the car is freshly plugged in.
@@ -280,7 +303,7 @@ def run(config: dict) -> None:
 
     # Minimum charge session: once charging starts, keep going for at least
     # 15 minutes as long as price stays <= 3.0 ¢/kWh.
-    session_started_at = 0.0       # unix timestamp when we started charging
+    session_started_at = state["session_started_at"]
 
     logger.info("=" * 60)
     logger.info("Tesla Negative-Cost Charger")
@@ -319,42 +342,21 @@ def run(config: dict) -> None:
                 )
 
                 if in_cooldown:
-                    # Cooldown active — but check if the car was just plugged in
-                    info = controller.get_charge_info()
-                    if info is None:
-                        time.sleep(poll_interval)
-                        continue
-
-                    just_plugged_in = (
-                        last_plugged_in is not None
-                        and not last_plugged_in
-                        and info["plugged_in"]
-                    )
-                    last_plugged_in = info["plugged_in"]
-
-                    if just_plugged_in:
-                        logger.info(
-                            "Car just plugged in — clearing cooldowns"
-                        )
-                        high_battery_skip_until = 0.0
-                        unplugged_skip_until = 0.0
-                        # Fall through to normal battery check below
+                    if now < unplugged_skip_until:
+                        remaining = int(unplugged_skip_until - now)
+                        label = "Unplugged"
                     else:
-                        if now < unplugged_skip_until:
-                            remaining = int(unplugged_skip_until - now)
-                            label = "Unplugged"
-                        else:
-                            remaining = int(high_battery_skip_until - now)
-                            label = "High-battery"
-                        logger.info(
-                            "%s cooldown active — skipping car check "
-                            "(%d min %d sec remaining)",
-                            label,
-                            remaining // 60,
-                            remaining % 60,
-                        )
-                        time.sleep(poll_interval)
-                        continue
+                        remaining = int(high_battery_skip_until - now)
+                        label = "High-battery"
+                    logger.info(
+                        "%s cooldown active — skipping car check "
+                        "(%d min %d sec remaining)",
+                        label,
+                        remaining // 60,
+                        remaining % 60,
+                    )
+                    time.sleep(poll_interval)
+                    continue
 
                 # Normal path: check plug + battery state
                 info = controller.get_charge_info()
@@ -362,7 +364,17 @@ def run(config: dict) -> None:
                     time.sleep(poll_interval)
                     continue
 
+                just_plugged_in = (
+                    last_plugged_in is not None
+                    and not last_plugged_in
+                    and info["plugged_in"]
+                )
                 last_plugged_in = info["plugged_in"]
+
+                if just_plugged_in:
+                    logger.info("Car just plugged in — clearing cooldowns")
+                    high_battery_skip_until = 0.0
+                    unplugged_skip_until = 0.0
 
                 if not info["plugged_in"]:
                     unplugged_skip_until = time.time() + UNPLUGGED_COOLDOWN
@@ -397,6 +409,7 @@ def run(config: dict) -> None:
                 if controller.start_charging():
                     negative_cost_session_active = True
                     session_started_at = time.time()
+                    save_state(True, session_started_at)
                     logger.info("Negative-cost charging session STARTED")
 
             elif not price_is_negative and negative_cost_session_active:
@@ -433,6 +446,7 @@ def run(config: dict) -> None:
                     if controller.stop_charging():
                         negative_cost_session_active = False
                         session_started_at = 0.0
+                        save_state(False, 0.0)
                         logger.info("Negative-cost charging session ENDED")
 
             elif negative_cost_session_active:
@@ -447,6 +461,7 @@ def run(config: dict) -> None:
                     if controller.stop_charging():
                         negative_cost_session_active = False
                         session_started_at = 0.0
+                        save_state(False, 0.0)
                 else:
                     logger.info("Negative-cost session active — continuing")
 
@@ -458,6 +473,7 @@ def run(config: dict) -> None:
             if negative_cost_session_active:
                 logger.info("Stopping active charging session before exit")
                 controller.stop_charging()
+            save_state(False, 0.0)
             break
         except Exception as e:
             logger.error("Unexpected error: %s", e, exc_info=True)
